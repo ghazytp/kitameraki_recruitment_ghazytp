@@ -3,6 +3,7 @@ const cors = require('cors')
 const app = express()
 
 const createId = require('./helper/createId')
+const temp_task = require('./tasks')
 
 const PORT = 3000
 
@@ -11,7 +12,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 
 
-let tasks = []
+let tasks = [...temp_task]
 
 
 app.get('/', (req, res) => {
@@ -35,7 +36,23 @@ app.post('/tasks', (req, res) => {
 // READ ALL TASK
 app.get('/tasks', (req, res) => {
 
-    res.status(200).json(tasks)
+    let page = Number(req.query.page)
+
+    if(!page) page = 1
+    
+    const limit = 5
+    const startIndex = (page - 1) * limit
+    const endIndex = startIndex + limit
+
+    const totalPage = Math.ceil(tasks.length / limit)
+
+    const result = tasks.slice(startIndex, endIndex)
+
+    res.status(200).json({
+        currentPage : page,
+        totalPage : totalPage,
+        data : result
+    })
 })
 
 // READ ONE TASK
