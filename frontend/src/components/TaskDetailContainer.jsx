@@ -7,15 +7,21 @@ export default function TaskDetailContainer({ taskDetailId, editTaskById }) {
   const [editValue, setEditValue] = useState(taskDetail);
 
   // Get one task data by id
-  const fetchTaskById = async () => {
+  const fetchTaskById = async (taskId) => {
     try {
-      const { data } = await axios.get(`${BASE_URL_TASKS}/${taskDetailId}`);
+      // close preview if deleted
+      if (!taskId) {
+        setTaskDetail({});
+        setEditValue({});
+
+        return;
+      }
+
+      const { data } = await axios.get(`${BASE_URL_TASKS}/${taskId}`);
 
       setTaskDetail(data);
       setEditValue(data);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   // Change the edit value when user type new value
@@ -41,7 +47,7 @@ export default function TaskDetailContainer({ taskDetailId, editTaskById }) {
   };
 
   useEffect(() => {
-    fetchTaskById();
+    fetchTaskById(taskDetailId);
   }, [taskDetailId]);
 
   return (

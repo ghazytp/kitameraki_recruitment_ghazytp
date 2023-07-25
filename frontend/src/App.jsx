@@ -8,14 +8,13 @@ import NewTaskForm from "./components/NewTaskForm";
 
 function App() {
   const [allTaskData, setAllTaskData] = useState({});
-  const [taskDetailId, setTaskDetailId] = useState({});
+  const [taskDetailId, setTaskDetailId] = useState(0);
   const [isHomePage, setIsHomePage] = useState(true);
   const [isAddForm, setIsAddForm] = useState(false);
 
   const fetchTasksData = async (page = 1) => {
     try {
       const { data } = await axios.get(`${BASE_URL_TASKS}?page=${page}`);
-
 
       setAllTaskData(data);
 
@@ -37,7 +36,7 @@ function App() {
       const { data } = await axios.delete(`${BASE_URL_TASKS}/${taskId}`);
 
       fetchTasksData(allTaskData.currentPage);
-      setTaskDetail({});
+      setTaskDetailId(0)
     } catch (err) {
       console.log(err);
     }
