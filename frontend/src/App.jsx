@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { BASE_URL_TASKS } from "./constants/constants";
 import axios from "axios";
 import SideNav from "./components/SideNav";
@@ -9,7 +9,6 @@ import NewTaskForm from "./components/NewTaskForm";
 function App() {
   const [allTaskData, setAllTaskData] = useState({});
   const [taskDetailId, setTaskDetailId] = useState(0);
-  const [isHomePage, setIsHomePage] = useState(true);
   const [isAddForm, setIsAddForm] = useState(false);
 
   const fetchTasksData = async (page = 1) => {

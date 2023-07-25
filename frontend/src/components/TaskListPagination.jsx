@@ -34,8 +34,7 @@ export default function TaskListPagination({
 
       {totalPageNum.slice(startIdx - 1, endIdx).map((page) => {
         // Show different page numbers if page is more than 5
-        const displayPage =
-          pageNum > maxVisiblePages ? pageNum + (page - maxVisiblePages) : page;
+        // const displayPage = pageNum > maxVisiblePages ? pageNum + (page - maxVisiblePages) : page;
         return (
           <button
             onClick={(e) => {
