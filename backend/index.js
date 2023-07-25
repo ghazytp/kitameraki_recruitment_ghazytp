@@ -39,14 +39,24 @@ app.get('/tasks', (req, res) => {
     let page = Number(req.query.page)
 
     if(!page) page = 1
+
+    const totalTask = tasks.length
     
-    const limit = 5
-    const startIndex = (page - 1) * limit
-    const endIndex = startIndex + limit
+    const limit = 10    
+    // const startIndex = (page - 1) * limit
+
+    //INDEX DARI DATA TERBARU
+    let startIndex = totalTask - ((page-1) * limit) - limit
+    let endIndex = startIndex + limit
+
+    if (startIndex < 0) {
+        startIndex = 0
+    }
 
     const totalPage = Math.ceil(tasks.length / limit)
 
-    const result = tasks.slice(startIndex, endIndex)
+    const result = tasks.slice(startIndex, endIndex).sort((a, b) => b.id - a.id)
+    // console.log(result)
 
     res.status(200).json({
         currentPage : page,
@@ -60,7 +70,7 @@ app.get('/tasks/:id', (req, res) => {
     const id = Number(req.params.id)
 
     const taskIndex = tasks.findIndex(task => task.id === id)
-
+    
     if (taskIndex === -1) return res.status(404).json({message: 'TASK_NOT_FOUND'})
 
     res.status(200).json(tasks[taskIndex])
@@ -91,9 +101,11 @@ app.delete('/tasks/:id', (req, res) => {
 
     if (taskIndex === -1) return res.status(404).json({message: 'TASK_NOT_FOUND'})
 
+    const deletedTask = tasks[taskIndex]
+
     tasks.splice(taskIndex, 1)
 
-    res.status(200).json(tasks)
+    res.status(200).json({ message: `${deletedTask.title} has been removed`})
 })
 
 

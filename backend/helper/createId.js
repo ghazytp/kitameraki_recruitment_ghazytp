@@ -1,5 +1,6 @@
+const temp_task = require("../tasks")
 
-let idCounter = 1
+let idCounter = temp_task.length > 1 ? temp_task.length + 1 : 1
 const createId = () => {
     return idCounter++
 }
