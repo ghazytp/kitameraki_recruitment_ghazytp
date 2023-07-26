@@ -51,7 +51,7 @@ export default function TaskDetailContainer({ taskDetailId, editTaskById }) {
   }, [taskDetailId]);
 
   return (
-    <div className="border-2 border-black rounded-sm px-4 py-2 flex justify-center pb-4 w-[440px] h-[490px] transition-all">
+    <div className="border-2 border-black rounded-sm px-4 py-2 flex justify-center pb-4 w-[440px] transition-all">
       {!taskDetail.title ? (
         <div className="flex flex-col items-center justify-center">
           <p>Task Preview</p>
@@ -77,7 +77,6 @@ export default function TaskDetailContainer({ taskDetailId, editTaskById }) {
             onBlur={onBlur}
             className="w-full min-h-[200px]  cursor-pointer outline-none no-scrollbar resize-none appearance-none hover:bg-yellow-50 rounded-sm px-1"
           />
-
         </div>
       )}
     </div>

@@ -7,7 +7,7 @@ import { initializeIcons } from '@fluentui/font-icons-mdl2';
 initializeIcons()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <App />
-  // </React.StrictMode>
+  </React.StrictMode>,
 )
