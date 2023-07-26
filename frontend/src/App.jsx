@@ -103,7 +103,6 @@ function App() {
         editedTask
       );
 
-      console.log(data, "EDITED");
       fetchTasksData();
     } catch (err) {
       console.log(err);

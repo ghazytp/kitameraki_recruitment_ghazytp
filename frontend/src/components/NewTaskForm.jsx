@@ -6,10 +6,7 @@ import { Droppable } from "react-beautiful-dnd";
 
 export default function NewTaskForm({
   createNewTask,
-  menuComponent,
-  setMenuComponent,
   formComponent,
-  setFormComponent,
   isFormSettings
 }) {
   const [formData, setFormData] = useState({
@@ -19,7 +16,6 @@ export default function NewTaskForm({
 
   const handleOnChange = (e) => {
     e.preventDefault();
-    console.log(formData)
     const name = e.target.id;
     const value = e.target.value;
 
@@ -40,7 +36,6 @@ export default function NewTaskForm({
 
   const handleOnSubmit = async (e) => {
     try {
-      console.log(formData, 'ON SUBMIT')
       e.preventDefault();
 
       createNewTask(formData);
