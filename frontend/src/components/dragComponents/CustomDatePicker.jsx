@@ -2,7 +2,6 @@ import { DatePicker } from "@fluentui/react";
 import { Draggable } from "react-beautiful-dnd";
 
 export default function CustomDatePicker({
-  dateLabel,
   dateValue,
   dateOnChange,
   dragId,

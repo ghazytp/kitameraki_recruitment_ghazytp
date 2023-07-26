@@ -5,7 +5,6 @@ import SideNav from "./components/SideNav";
 import TaskListContainer from "./components/TaskListContainer";
 import TaskDetailContainer from "./components/TaskDetailContainer";
 import NewTaskForm from "./components/NewTaskForm";
-import SettingsV2 from "./components/SettingsV2";
 import { DragDropContext } from "react-beautiful-dnd";
 import CustomTextField from "./components/dragComponents/CustomTextField";
 import CustomDatePicker from "./components/dragComponents/CustomDatePicker";
@@ -13,6 +12,7 @@ import CustomSpinButton from "./components/dragComponents/CustomSpinButton";
 import TitleTextField from "./components/dragComponents/TitleTextField";
 import DescriptionTextField from "./components/dragComponents/DescriptionTextField";
 import CustomSubmitButton from "./components/dragComponents/CustomSubmitButton";
+import SettingsContainer from "./components/SettingsContainer";
 
 const menuComponentData = [
   {
@@ -214,7 +214,7 @@ function App() {
             handleSettings={handleSettings}
           />
           {isFormSettings ? (
-            <SettingsV2
+            <SettingsContainer
               formComponent={formComponent}
               setFormComponent={setFormComponent}
               menuComponent={menuComponent}

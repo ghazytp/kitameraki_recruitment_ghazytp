@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BASE_URL_TASKS } from "../constants/constants";
+import { DatePicker, SpinButton } from "@fluentui/react";
 
 export default function TaskDetailContainer({ taskDetailId, editTaskById }) {
   const [taskDetail, setTaskDetail] = useState({});
@@ -27,6 +28,23 @@ export default function TaskDetailContainer({ taskDetailId, editTaskById }) {
   // Change the edit value when user type new value
   const handleEditChange = (e) => {
     setEditValue({ ...editValue, [e.target.id]: e.target.value });
+  };
+
+  const handleEditDate = (date) => {
+    setEditValue({ ...editValue, ...date });
+  };
+
+  const handleDataOnBlur = () => {
+    setTaskDetail(editValue);
+    editTaskById(taskDetailId, editValue);
+  };
+
+  const handleSpinButton = (e, val) => {
+    e.preventDefault();
+    const data = {
+      spinButton: val,
+    };
+    setEditValue({ ...editValue, ...data });
   };
 
   // Save the edited value when user press "enter" or "esc"
@@ -58,26 +76,69 @@ export default function TaskDetailContainer({ taskDetailId, editTaskById }) {
           <p>No Task Selected</p>
         </div>
       ) : (
-        <div className="w-full">
+        <div className="w-full flex flex-col gap-2">
           <textarea
             rows={1}
             id="title"
             value={editValue.title}
             onChange={handleEditChange}
             onKeyDown={onKeyDown}
-            onBlur={onBlur}
             className="w-full outline-none text-2xl font-semibold hover:text-gray-500 cursor-pointer resize-none appearance-none"
           />
-          <textarea
-            rows={1}
-            id="description"
-            value={editValue.description}
-            onChange={handleEditChange}
-            onKeyDown={onKeyDown}
-            onBlur={onBlur}
-            className="w-full min-h-[200px]  cursor-pointer outline-none no-scrollbar resize-none appearance-none hover:bg-yellow-50 rounded-sm px-1"
-          />
+          {!editValue.date ? (
+            ""
+          ) : (
+            <DatePicker
+              id="date"
+              value={new Date(editValue.date)}
+              onSelectDate={(date) => handleEditDate({ date: date })}
+              onBlur={handleDataOnBlur}
+              className="w-full outline-none font-semibold text-sm hover:text-gray-500 cursor-pointer resize-none appearance-none"
+            />
+          )}
 
+          {!editValue.description ? (
+            ""
+          ) : (
+            <textarea
+              rows={1}
+              id="description"
+              value={editValue.description}
+              onChange={handleEditChange}
+              onKeyDown={onKeyDown}
+              onBlur={onBlur}
+              className="w-full min-h-[200px] flex-1 cursor-pointer outline-none no-scrollbar resize-none appearance-none rounded-sm px-1"
+            />
+          )}
+
+          {!editValue.customInput ? (
+            ""
+          ) : (
+            <div>
+              <p>Notes :</p>
+              <textarea
+                rows={1}
+                id="customInput"
+                value={editValue.customInput}
+                onChange={handleEditChange}
+                onKeyDown={onKeyDown}
+                className="w-full outline-none hover:text-gray-500 cursor-pointer resize-none appearance-none"
+              />
+            </div>
+          )}
+
+          {!editValue.spinButton ? (
+            ""
+          ) : (
+            <div>
+              <p>Spin Button :</p>
+              <SpinButton
+                value={editValue.spinButton}
+                onChange={handleSpinButton}
+                onBlur={handleDataOnBlur}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

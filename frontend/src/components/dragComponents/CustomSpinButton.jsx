@@ -2,7 +2,7 @@ import { SpinButton } from "@fluentui/react";
 import { Draggable } from "react-beautiful-dnd";
 
 export default function CustomSpinButton({
-  spinValue,
+
   spinOnChange,
   dragId,
   index,
