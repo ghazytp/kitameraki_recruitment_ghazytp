@@ -13,6 +13,7 @@ import TitleTextField from "./components/dragComponents/TitleTextField";
 import DescriptionTextField from "./components/dragComponents/DescriptionTextField";
 import CustomSubmitButton from "./components/dragComponents/CustomSubmitButton";
 import SettingsContainer from "./components/SettingsContainer";
+import NewTaskForm2 from "./components/NewTaskForm2";
 
 const menuComponentData = [
   {
@@ -49,6 +50,8 @@ const formComponentData = [
     component: CustomSubmitButton,
   },
 ];
+
+const formJsonConfig = "aloha";
 
 function App() {
   const [formComponent, setFormComponent] = useState(formComponentData);
@@ -89,8 +92,9 @@ function App() {
 
   const createNewTask = async (taskData) => {
     try {
-      const { data } = await axios.post(BASE_URL_TASKS, taskData);
-      fetchTasksData();
+      console.log(taskData, 'ON SAVE DATA')
+      // const { data } = await axios.post(BASE_URL_TASKS, taskData);
+      // fetchTasksData();
     } catch (err) {
       console.log(err);
     }
@@ -153,7 +157,6 @@ function App() {
     // result[droppableSource.droppableId] = sourceClone;
     // result[droppableDestination.droppableId] = destClone;
 
-
     return result;
   };
 
@@ -176,22 +179,28 @@ function App() {
       const reorderedList = reorder(formComponent, source, destination);
       setFormComponent(reorderedList);
     } else {
-
-      if (destId === 'Form') {
-        const { sourceList, destinationList } = move(menuComponent, formComponent, source, destination)
-        setMenuComponent(sourceList)
-        setFormComponent(destinationList)
+      if (destId === "Form") {
+        const { sourceList, destinationList } = move(
+          menuComponent,
+          formComponent,
+          source,
+          destination
+        );
+        setMenuComponent(sourceList);
+        setFormComponent(destinationList);
       }
 
-      if (destId === 'Menu') {
-        const { sourceList, destinationList } = move(formComponent, menuComponent, source, destination)
-        setFormComponent(sourceList)
-        setMenuComponent(destinationList)
+      if (destId === "Menu") {
+        const { sourceList, destinationList } = move(
+          formComponent,
+          menuComponent,
+          source,
+          destination
+        );
+        setFormComponent(sourceList);
+        setMenuComponent(destinationList);
       }
-
     }
-
-    
   };
 
   useEffect(() => {
@@ -235,13 +244,17 @@ function App() {
               editTaskById={editTaskById}
             />
           ) : (
-            <NewTaskForm
-              createNewTask={createNewTask}
-              formComponent={formComponent}
-              setFormComponent={setFormComponent}
-              menuComponent={menuComponent}
-              setMenuComponent={setMenuComponent}
-              isFormSettings={isFormSettings}
+            // <NewTaskForm
+            //   createNewTask={createNewTask}
+            //   formComponent={formComponent}
+            //   setFormComponent={setFormComponent}
+            //   menuComponent={menuComponent}
+            //   setMenuComponent={setMenuComponent}
+            //   isFormSettings={isFormSettings}
+            // />
+            <NewTaskForm2
+              onSave={createNewTask}
+              configuration={formJsonConfig}
             />
           )}
         </div>
